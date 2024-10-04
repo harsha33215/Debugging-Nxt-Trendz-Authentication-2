@@ -6,9 +6,11 @@ import Header from '../Header'
 import './index.css'
 
 const Home = () => {
+  // FIX7: Cookies.get() method should be used to get the accessToken stored in Cookies
   const accessToken = Cookies.get('jwt_token')
+
   if (accessToken === undefined) {
-    return <Redirect to= "/login" />
+    return <Redirect to="/login" />
   }
 
   return (
@@ -19,6 +21,8 @@ const Home = () => {
           <h1 className="home-heading">Clothes That Get YOU Noticed</h1>
           <img
             src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-home-img.png"
+            // FIX8: alt attribute value should be given here as mentioned in the instructions
+            alt="clothes that get you noticed"
             className="home-mobile-img"
           />
           <p className="home-description">
