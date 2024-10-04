@@ -5,8 +5,12 @@ import './index.css'
 
 const Header = props => {
   const onClickLogout = () => {
+    // FIX4: To use history we should destruct it from props received
     const {history} = props
+
     Cookies.remove('jwt_token')
+    // FIX5: When logging out history.replace should be used to prevent navigating to authenticated routes when the back button is clicked in browser
+    // FIX6: Path to Login Route should be as given below
     history.replace('/login')
   }
 
