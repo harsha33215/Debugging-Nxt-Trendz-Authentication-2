@@ -21,8 +21,12 @@ class LoginForm extends Component {
   }
 
   onSubmitSuccess = jwtToken => {
-    const {history} =props
-    Cookies.set('jwt_token', jwtToken, {expires: 30})
+    const {history} = this.props
+
+    Cookies.set('jwt_token', jwtToken, {
+      expires: 30,
+    })
+    // FIX1: history.replace should be used to navigate to the Home Route here
     history.replace('/')
   }
 
@@ -41,6 +45,7 @@ class LoginForm extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
+
     if (response.ok === true) {
       this.onSubmitSuccess(data.jwt_token)
     } else {
@@ -108,6 +113,8 @@ class LoginForm extends Component {
           className="login-img"
           alt="website login"
         />
+
+        {/* FIX2: The attribute that should be used to capture the submit event triggered while submitting the form is "onSubmit" */}
         <form className="form-container" onSubmit={this.submitForm}>
           <img
             src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-logo-img.png"
@@ -116,7 +123,8 @@ class LoginForm extends Component {
           />
           <div className="input-container">{this.renderUsernameField()}</div>
           <div className="input-container">{this.renderPasswordField()}</div>
-          <button type="button" className="login-button">
+          {/* FIX3: The button type should be "submit" */}
+          <button type="submit" className="login-button">
             Login
           </button>
           {showSubmitError && <p className="error-message">*{errorMsg}</p>}
